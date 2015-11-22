@@ -29,6 +29,17 @@ class Player
     @health += 15
     puts "#{@name} got w00ted!"
   end
+
+  def strong?
+    @health > 100
+    # Same as:
+    #if @health <= 100
+    #  false
+    #else
+    #  true
+    #end
+  end
+
 end
 
 # Example Code:

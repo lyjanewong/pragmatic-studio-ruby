@@ -10,11 +10,3 @@ playlist1.add_movie(movie2)
 playlist1.add_movie(movie3)
 playlist1.play
 
-puts "---"
-
-playlist2 = Playlist.new("Fozzie")
-playlist2.add_movie(movie3)
-
-movie4 = Movie.new("gremlins", 15)
-playlist2.add_movie(movie4)
-playlist2.play

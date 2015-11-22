@@ -21,6 +21,31 @@ describe Player do
     @player.health.should == 150
   end
 
+  context "has a health value greater than 100" do
+
+    before do
+      @player = Player.new("newbie", 150)
+    end
+
+    it "is a strong player" do
+      #RSpec calls strong? method and using should, checks if it returns true
+      @player.should be_strong
+    end
+
+  end
+
+  context "has a health value less than or equal to 100" do
+
+    before do
+      @player = Player.new("newbie", 100)
+    end
+
+    it "is a wimpy player" do
+      @player.should_not be_strong
+    end
+
+  end
+
   it "has a string representation" do
     @player.to_s.should == "I'm Larry with a health of 150 and a score of 155."
   end

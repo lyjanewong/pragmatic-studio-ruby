@@ -1,4 +1,5 @@
 require_relative 'movie'
+require_relative 'die'
 
 class Playlist
 
@@ -18,7 +19,17 @@ class Playlist
     puts @movies
 
     @movies.each do |movie|
-      movie.thumbs_up
+      die = Die.new
+      case die.roll_die
+      when 1..2
+        movie.thumbs_down
+        puts "#{movie.title} got a thumbs down."
+      when 3..4
+        puts "#{movie.title} was skipped."
+      else
+        movie.thumbs_up
+        puts "#{movie.title} got a thumbs up."
+      end
       puts movie
     end
 

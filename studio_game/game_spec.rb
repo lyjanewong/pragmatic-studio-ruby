@@ -3,22 +3,35 @@ require_relative 'game'
 describe Game do
 
   before do
-    @game = Game.new("Super Smash Bros")
-    $stdout = StringIO.new
+    @game = Game.new("Knuckleheads")
+
+    @initial_health = 100
+    @player = Player.new("moe", @initial_health)
+    
+    @game.add_player(@player)
   end
 
-  it "has a title" do
-    @game.title.should == "Super Smash Bros"
-  end
-
-  it "blams player once (-10 hp), w00ts player twice (+15 hp/each) and blams player once more when play is called" do
-    initial_health = 150
-    player = Player.new("Lawrence", initial_health)
-    @game.add_player(player)
+  it "increases the player's health by 15 when a high number (5 or 6) is rolled" do
+    # Stubs out the roll method of any Die object - and makes it 5
+    Die.any_instance.stub(:roll).and_return(5)
     @game.play
 
-    player.health.should == (initial_health - 10 + 15 + 15 - 10)
+    @player.health.should == @initial_health + 15
   end
 
+  it "does not change the player's health when a medium number (3 or 4) is rolled" do
+    Die.any_instance.stub(:roll).and_return(4)
+    @game.play
 
+    @player.health.should == @initial_health
+  end
+
+  it "decreases the player's health by 10 when a low number (1 or 2) is rolled" do
+    Die.any_instance.stub(:roll).and_return(1)
+    @game.play
+
+    @player.health.should == @initial_health - 10
+  end
+
+  
 end

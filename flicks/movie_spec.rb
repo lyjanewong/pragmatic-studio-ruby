@@ -19,7 +19,7 @@ describe Movie do
   end
 
   it "has a string representation" do
-    @movie.to_s.should == "Goonies has a rank of 10."
+    @movie.to_s.should == "Goonies has a rank of 10 (Hit)"
   end
 
   it "increases rank by 1 when given a thumbs up" do
@@ -42,6 +42,34 @@ describe Movie do
 
     it "has a rank of 0" do
       @movie.rank.should == 0
+    end
+  end
+
+  context "with a rank of at least 10" do
+    before do
+      @movie = Movie.new("goonies", 10)
+    end
+
+    it "is a hit" do
+      @movie.should be_hit
+    end
+
+    it "has a hit status" do
+      @movie.status.should == "Hit"
+    end
+  end
+
+  context "with a rank of less than 10" do
+    before do
+      @movie = Movie.new("goonies", 9)
+    end
+
+    it "is not a hit" do
+      @movie.should_not be_hit
+    end
+
+    it "has a flop status" do
+      @movie.status.should == "Flop"
     end
 
   end
