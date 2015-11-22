@@ -28,6 +28,38 @@ describe Project do
     @project.funds.should == (@current_funds - 15)
   end
 
+  context "when funding is more than or equal to target" do
+
+    before do
+      @project = Project.new("Project ABC", 1000, 1200)
+    end
+
+    it "is fully funded" do
+      @project.should be_fully_funded
+    end
+
+    it "has reached its target" do
+      @project.status.should == "Target Reached"
+    end
+
+  end 
+
+  context "when funding is less than target" do
+
+    before do
+      @project = Project.new("Project ABC", 1000, 500)
+    end
+
+    it "is in progress" do
+      @project.should_not be_fully_funded
+    end
+
+    it "has a 'Funding in Progress' status" do
+      @project.status.should == "Funding in Progress"
+    end
+
+  end 
+
   context "created without a specified funding amount" do
 
     before do
@@ -39,5 +71,5 @@ describe Project do
     end
 
   end
-  
+
 end

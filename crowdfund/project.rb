@@ -6,8 +6,8 @@ class Project
     @funds = current_funds
   end
 
-  attr_reader :funds, :target
-  attr_accessor :name
+  attr_reader :target
+  attr_accessor :name, :funds
 
   def funds_to_target
     @target - @funds
@@ -23,8 +23,20 @@ class Project
     puts "#{@name} project lost some funds!"
   end
 
-  def to_s
-    "#{@name} project has $#{@funds} in funding towards a goal of $#{@target}. (Funds to Goal = $#{funds_to_target})"
+  def fully_funded?
+    @funds >= @target
   end
-  
+
+  def status
+    fully_funded? ? "Target Reached" : "Funding in Progress"
+  end
+
+  def to_s
+    if fully_funded?
+      "#{@name} project has $#{@funds} in funding towards a goal of $#{@target}.\n (#{status} - Total Funds = $#{@funds})\n\n"
+    else
+    "#{@name} project has $#{@funds} in funding towards a goal of $#{@target}.\n (#{status} - Funds to Goal = $#{funds_to_target})\n\n"
+    end
+  end
+
 end

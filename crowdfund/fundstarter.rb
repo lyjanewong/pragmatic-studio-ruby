@@ -1,4 +1,5 @@
 require_relative 'project'
+require_relative 'die'
 
 class FundStarter
 
@@ -30,9 +31,13 @@ class FundStarter
     puts "---"
 
     @projects.each do |project|
-      project.add_funds
-      project.remove_funds
-      project.add_funds
+      die = Die.new
+      case die.roll
+      when 1 || 3 || 5
+        project.remove_funds
+      else
+        project.add_funds
+      end
       puts "UPDATE: #{project}"
     end
 
