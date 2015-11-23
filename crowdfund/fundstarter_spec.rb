@@ -1,4 +1,5 @@
 require_relative 'fundstarter'
+require_relative 'die'
 
 describe FundStarter do
   
@@ -56,8 +57,6 @@ end
 #    end
 #
 #  end
-
-end
 
 
 
