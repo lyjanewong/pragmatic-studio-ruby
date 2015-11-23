@@ -30,6 +30,11 @@ class Movie
     @rank -= 1
   end
 
+  # Compares the other movie's rank with the current movie's rank
+  def <=>(other_movie)
+    other_movie.rank <=> @rank
+  end
+
   def to_s
     "#{@title} has a rank of #{@rank} (#{status})"
   end 

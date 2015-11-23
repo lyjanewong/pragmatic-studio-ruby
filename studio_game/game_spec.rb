@@ -14,24 +14,26 @@ describe Game do
   it "increases the player's health by 15 when a high number (5 or 6) is rolled" do
     # Stubs out the roll method of any Die object - and makes it 5
     Die.any_instance.stub(:roll).and_return(5)
-    @game.play
 
-    @player.health.should == @initial_health + 15
+    @game.play(2)
+
+    @player.health.should == @initial_health + (15 * 2)
   end
 
   it "does not change the player's health when a medium number (3 or 4) is rolled" do
     Die.any_instance.stub(:roll).and_return(4)
-    @game.play
+
+    @game.play(2)
 
     @player.health.should == @initial_health
   end
 
   it "decreases the player's health by 10 when a low number (1 or 2) is rolled" do
     Die.any_instance.stub(:roll).and_return(1)
-    @game.play
 
-    @player.health.should == @initial_health - 10
+    @game.play(2)
+
+    @player.health.should == @initial_health - (10 * 2)
   end
-
   
 end
