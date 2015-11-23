@@ -11,6 +11,6 @@ knuckleheads.add_player(player1)
 knuckleheads.add_player(player2)
 knuckleheads.add_player(player3)
 knuckleheads.add_player(player4)
-knuckleheads.play(5)
+knuckleheads.play(2)
 knuckleheads.print_stats
 
