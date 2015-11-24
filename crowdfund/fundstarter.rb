@@ -1,6 +1,7 @@
 require_relative 'project'
 require_relative 'die'
 require_relative 'funding_round'
+require_relative 'pledge_pool'
 
 class FundStarter
 
@@ -58,6 +59,16 @@ class FundStarter
 
     @projects.each do |project|
       puts project
+    end
+
+    puts "---"
+
+    pledges = PledgePool::PLEDGES
+
+    puts "There are #{pledges.size} possible pledge amounts:"
+
+    pledges.each do |pledge|
+      puts "\tA #{pledge.name} pledge is worth $#{pledge.amount}."
     end
 
     puts "---"

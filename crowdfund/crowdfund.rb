@@ -10,5 +10,5 @@ puts startup_projects.title
 startup_projects.add_project(project1)
 startup_projects.add_project(project2)
 startup_projects.add_project(project3)
-startup_projects.request_funding(5)
+startup_projects.request_funding(2)
 startup_projects.print_status
