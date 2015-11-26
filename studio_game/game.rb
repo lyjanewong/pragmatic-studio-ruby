@@ -20,7 +20,17 @@ class Game
     puts "#{player.name} (#{player.health})"
   end
 
+  def total_points
+    @players.reduce(0) {|sum, player| sum + player.points}
+  end
+
   def print_stats
+
+    @players.each do |player|
+      puts "\n#{player.name}'s point totals:\n#{player.points} grand total points\n"
+    end
+
+    puts "\n#{total_points} total points from treasures found"
 
     strong_men = @players.select {|player| player.strong?}
     wimps = @players.reject {|player| player.strong?}

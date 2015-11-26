@@ -1,4 +1,5 @@
 require_relative 'project'
+require_relative 'pledge_pool'
 
 describe Project do
 
@@ -71,5 +72,36 @@ describe Project do
     end
 
   end
+
+  it "accumulates received pledges for each project" do
+    @project.total_pledge_amount.should == 0
+
+    @project.pledge_amount(Pledge.new(:bronze, 50))
+
+    @project.total_pledge_amount.should == 50
+
+    @project.pledge_amount(Pledge.new(:silver, 75))
+
+    @project.total_pledge_amount.should == 125
+
+    @project.pledge_amount(Pledge.new(:gold, 100))
+
+    @project.total_pledge_amount.should == 225
+
+  end
+
+  it "accumulates pledge amounts in project's funding calculation" do
+
+    @project.add_funds
+
+    @project.funds.should == 125
+
+    @project.pledge_amount(Pledge.new(:bronze, 50))
+
+    @project.total_pledge_amount.should == 50
+
+    @project.total_funds == 175
+  end
+
 
 end

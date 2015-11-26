@@ -33,14 +33,30 @@ class Playlist
       @movies.each do |movie|
         WaldorfAndStatler.review(movie)
         snack = SnackBar.random
-        puts "#{movie.title} led to #{snack.carbs} #{snack.name} carbs being consumed."
+        movie.ate_snack(snack)
         puts movie
       end
     end
   end
 
+  def total_carbs_consumed
+
+    # Reduce the movies array to the sum of all carbs consumed across movies
+    @movies.reduce(0) do |sum, movie|
+      sum + movie.carbs_consumed
+    end
+
+  end
+
   def print_stats
     puts "\n#{@name}'s Stats:"
+
+    puts "#{total_carbs_consumed} total carbs consumed"
+
+    @movies.sort.each do |movie|
+      puts "\n#{movie.title}'s snack totals:"
+      puts "#{movie.carbs_consumed} grand total carbs"
+    end
 
     hits, flops = @movies.partition { |movie| movie.hit? }
 

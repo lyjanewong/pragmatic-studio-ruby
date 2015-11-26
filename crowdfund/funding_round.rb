@@ -16,9 +16,9 @@ module FundingRound
     end
 
     # Each project randomly receives a pledge
+    # Pledge amounts are tracked in the hash, pledges
     pledge = PledgePool.random
-    puts "#{project.name} received a #{pledge.name} worth $#{pledge.amount}."
-
+    project.pledge_amount(pledge)
   end
 
 end
