@@ -7,7 +7,16 @@ class Player
   end
 
   attr_reader :health
-  attr_accessor :name, :found_treasures
+  attr_accessor :name
+
+  def each_found_treasure
+
+    @found_treasures.each do |name, points|
+      treasure = Treasure.new(name, points)
+      yield treasure
+    end
+
+  end
 
   def name=(new_name)
     @name = new_name.capitalize

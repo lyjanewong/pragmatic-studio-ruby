@@ -54,8 +54,17 @@ class Playlist
     puts "#{total_carbs_consumed} total carbs consumed"
 
     @movies.sort.each do |movie|
+
       puts "\n#{movie.title}'s snack totals:"
+
+      # Instead of directly using the @snack_carbs hash, we use a custom iterator here.
+      # WHY? Making the movie's @snack_carbs hash a readable attribute exposes the Movie class unnecessarily and makes it so the Playlist class relies on the fact that snacks are stored in a hash. This makes it dependent on the Movie class (coupling) and makes maintaining the program more difficult. 
+      movie.each_snack do |snack|
+        puts "#{snack.carbs} total #{snack.name} carbs"
+      end
+
       puts "#{movie.carbs_consumed} grand total carbs"
+
     end
 
     hits, flops = @movies.partition { |movie| movie.hit? }

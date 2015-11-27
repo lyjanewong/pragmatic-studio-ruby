@@ -17,7 +17,7 @@ class Game
   end
 
   def print_name_and_health(player)
-    puts "#{player.name} (#{player.health})"
+    puts "#{player.name} (#{player.health} hp)"
   end
 
   def total_points
@@ -27,7 +27,13 @@ class Game
   def print_stats
 
     @players.each do |player|
-      puts "\n#{player.name}'s point totals:\n#{player.points} grand total points\n"
+      puts "\n#{player.name}'s point totals:"
+      
+      player.each_found_treasure do |treasure|
+        puts "#{treasure.points} total #{treasure.name} points"
+      end
+
+      puts "\t= #{player.points} grand total points\n"
     end
 
     puts "\n#{total_points} total points from treasures found"
@@ -71,11 +77,19 @@ class Game
   end
 
   1.upto(rounds) do |count|
+
+    # Checks if a block was provided. If yes, yield to it.
+    if block_given?
+      # If the block returns true (if the total number of points is more than or equal to 2000), break out of the loop. If the block returns false, carry on with the code below.
+      break if yield
+    end
+
     puts "\nRound #{count}:"
     @players.each do |player|
-      GameTurn.take_turn(player)
-      puts player
+    GameTurn.take_turn(player)
+    puts player
     end
+      
   end
 
   end

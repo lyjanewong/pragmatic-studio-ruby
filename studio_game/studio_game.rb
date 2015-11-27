@@ -11,6 +11,12 @@ knuckleheads.add_player(player1)
 knuckleheads.add_player(player2)
 knuckleheads.add_player(player3)
 knuckleheads.add_player(player4)
-knuckleheads.play(2)
+
+# The decision of how the game ends is decoupled from the concept of how the game is run
+# This makes the code more flexible in the long-run.
+knuckleheads.play(10) do
+  knuckleheads.total_points >=2000
+end
+
 knuckleheads.print_stats
 

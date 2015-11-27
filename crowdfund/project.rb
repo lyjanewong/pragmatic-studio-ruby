@@ -8,7 +8,16 @@ class Project
   end
 
   attr_reader :target
-  attr_accessor :name, :funds, :pledges
+  attr_accessor :name, :funds
+
+  def pledges_received
+
+    @pledges.each do |name, amount|
+      pledge = Pledge.new(name, amount)
+      yield pledge
+    end
+
+  end
 
   def add_funds
     @funds += 25

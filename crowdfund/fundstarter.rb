@@ -22,6 +22,22 @@ class FundStarter
 
   def print_status
 
+    puts "\n---"
+
+    @projects.each do |project|
+
+      puts "\n#{project.name} Pledges:"
+
+      project.pledges_received do |pledge|
+        puts "$#{pledge.amount} in #{pledge.name} pledges"
+      end
+
+      puts "\t= $#{project.total_pledge_amount} in total pledges\n\n"
+
+    end
+
+    puts "---"
+
     fully_funded_project, under_funded_project = @projects.partition {|project| project.fully_funded?}
 
     puts "\nLatest Update (As of: #{Time.now.strftime "%d/%m/%Y, %I:%M %p"}) :\n"

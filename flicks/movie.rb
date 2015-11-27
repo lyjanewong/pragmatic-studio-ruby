@@ -1,12 +1,21 @@
 class Movie
 
   attr_reader :rank
-  attr_accessor :title, :snack_carbs
+  attr_accessor :title
 
   def initialize(title,rank=0)
     @title = title.capitalize
     @rank = rank
     @snack_carbs = Hash.new(0)
+  end
+
+  # Create the custom iterator, each_snack, that returns (yields) a snack object from the movie's associated @snack_carbs hash 
+  def each_snack
+    @snack_carbs.each do |name, carbs|
+      # Takes the key value pair from the snack_carbs hash to construct a new snack object
+      snack = Snack.new(name, carbs)
+      yield snack
+    end
   end
 
   def carbs_consumed
