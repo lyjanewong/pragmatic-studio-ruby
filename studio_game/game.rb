@@ -2,6 +2,7 @@ require_relative 'player'
 require_relative 'die'
 require_relative 'game_turn'
 require_relative 'treasure_trove'
+require 'csv'
 
 class Game
 
@@ -11,6 +12,28 @@ class Game
   end
 
   attr_reader :title
+
+  def load_players(from_file)
+    File.readlines(from_file).each do |line|
+      add_player(Player.from_csv(line))
+    end
+
+    # Using the CSV class
+    # foreach() returns each row of the file to the provided block in turn 
+    # CSV.foreach(from_file).each do |row|
+    #   player = Player.new(row[0], row[1].to_i)
+    #   add_player(player)
+    # end
+  end
+
+  def save_high_scores(to_file="high_scores.txt")
+    File.open(to_file, "w") do |file|
+      file.puts "#{@title} High Scores:"
+      @players.sort.each do |player|
+        file.puts print_high_score(player)
+      end
+    end
+  end
 
   def add_player(player)
     @players << player
@@ -22,6 +45,10 @@ class Game
 
   def total_points
     @players.reduce(0) {|sum, player| sum + player.points}
+  end
+
+  def print_high_score(player)
+    "#{player.name.ljust(20, ".")}#{player.score}"
   end
 
   def print_stats
@@ -55,7 +82,7 @@ class Game
 
     puts "\n#{title} High Scores:"
     @players.sort.each do |player|
-      puts "#{player.name}".ljust(20, ".") + "#{player.score}"
+      puts print_high_score(player)
     end
 
   end

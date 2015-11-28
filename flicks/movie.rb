@@ -9,6 +9,16 @@ class Movie
     @snack_carbs = Hash.new(0)
   end
 
+  # There is no object, so self. creates a Class method that can be called directly on the class itself
+  def self.from_csv(line)
+    title, rank = line.split(',')
+    movie = Movie.new(title, Integer(rank))
+  end
+
+  def to_csv
+    "#{@title}, #{@rank}"
+  end
+
   # Create the custom iterator, each_snack, that returns (yields) a snack object from the movie's associated @snack_carbs hash 
   def each_snack
     @snack_carbs.each do |name, carbs|

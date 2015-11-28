@@ -124,5 +124,15 @@ describe Player do
       Treasure.new(:bottle, 25)
    ]
   end
-  
+
+  it "creates a new player from csv" do
+
+    player = Player.from_csv("tara, 100")
+
+    player.name.should == "Tara"
+    player.health.should == 100
+
+  end
+
 end
+
