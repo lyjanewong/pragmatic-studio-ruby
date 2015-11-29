@@ -51,6 +51,48 @@ class Game
     "#{player.name.ljust(20, ".")}#{player.score}"
   end
 
+  def play(rounds)
+
+    puts "There are #{@players.count} players in #{@title}:"
+
+    @players.each do |player|
+      puts player
+    end
+
+    treasures = TreasureTrove::TREASURES
+
+    puts "\nThere are #{treasures.size} treasures to be found:"
+
+    treasures.each do |treasure|
+      puts "A #{treasure.name} is worth #{treasure.points} points"
+    end
+
+    1.upto(rounds) do |count|
+
+      # Checks if a block was provided. If yes, yield to it.
+      if block_given?
+        # If the block returns true (if the total number of points is more than or equal to 2000), break out of the loop. If the block returns false, carry on with the code below.
+        break if yield
+      end
+
+      puts "\nRound #{count}:"
+      @players.each do |player|
+      GameTurn.take_turn(player)
+      puts player
+      end
+        
+    end
+
+  end
+
+  def strong_men
+    @players.select {|player| player.strong?}
+  end
+
+  def wimps
+    @players.reject {|player| player.strong?}
+  end
+
   def print_stats
 
     @players.each do |player|
@@ -64,9 +106,6 @@ class Game
     end
 
     puts "\n#{total_points} total points from treasures found"
-
-    strong_men = @players.select {|player| player.strong?}
-    wimps = @players.reject {|player| player.strong?}
 
     puts "\n#{title} Statistics:\n"
 
@@ -87,38 +126,6 @@ class Game
 
   end
 
-  def play(rounds)
 
-  puts "There are #{@players.count} players in #{@title}:"
-
-  @players.each do |player|
-    puts player
-  end
-
-  treasures = TreasureTrove::TREASURES
-
-  puts "\nThere are #{treasures.size} treasures to be found:"
-
-  treasures.each do |treasure|
-    puts "A #{treasure.name} is worth #{treasure.points} points"
-  end
-
-  1.upto(rounds) do |count|
-
-    # Checks if a block was provided. If yes, yield to it.
-    if block_given?
-      # If the block returns true (if the total number of points is more than or equal to 2000), break out of the loop. If the block returns false, carry on with the code below.
-      break if yield
-    end
-
-    puts "\nRound #{count}:"
-    @players.each do |player|
-    GameTurn.take_turn(player)
-    puts player
-    end
-      
-  end
-
-  end
 
 end

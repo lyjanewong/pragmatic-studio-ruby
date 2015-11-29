@@ -1,14 +1,14 @@
 class Project
 
+  attr_reader :target
+  attr_accessor :name, :funds
+
   def initialize (name, target, current_funds=0)
     @name = name
     @target = target
     @funds = current_funds
     @pledges = Hash.new(0)
   end
-
-  attr_reader :target
-  attr_accessor :name, :funds
 
   def pledges_received
 
@@ -60,7 +60,7 @@ class Project
     if fully_funded?
       "#{@name} project has $#{total_funds} in funding towards a goal of $#{@target}.\n(#{status} - Total Funds = $#{total_funds})\n\n"
     else
-    "#{@name} project has $#{total_funds} in funding towards a goal of $#{@target}.\n(#{status} - Funds to Goal = $#{funds_to_target})\n\n"
+      "#{@name} project has $#{total_funds} in funding towards a goal of $#{@target}.\n(#{status} - Funds to Goal = $#{funds_to_target})\n\n"
     end
   end
 
