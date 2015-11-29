@@ -1,4 +1,5 @@
 require_relative 'playlist'
+require_relative 'movie3d'
 
 movie1 = Movie.new("goonies", 10)
 movie2 = Movie.new("ghostbusters", 9)
@@ -8,6 +9,8 @@ playlist1 = Playlist.new("Kermit")
 
 # Command line arguments are stored in global array, ARGV (argument vector). The .shift method returns the argument passed to the command line. If shift returns nil, "movies.csv" is loaded as the default
 playlist1.load(ARGV.shift || "movies.csv")
+movie3d = Movie3D.new("glee", 5, 10)
+playlist1.add_movie(movie3d)
 
 loop do
 
