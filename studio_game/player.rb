@@ -1,13 +1,16 @@
+require_relative 'playable'
+
 class Player
+  include Playable
+
+  attr_reader :name 
+  attr_accessor :health
 
   def initialize(name, health=100)
     @name = name.capitalize
     @health = health
     @found_treasures = Hash.new(0)
   end
-
-  attr_reader :health
-  attr_accessor :name
 
   def self.from_csv(string)
     name, health = string.split(",")
@@ -37,26 +40,6 @@ class Player
 
   def <=>(other_player)
     other_player.score <=> score
-  end
-
-  def blam
-    @health -= 10
-    puts "#{@name} got blammed!"
-  end
-
-  def w00t
-    @health += 15
-    puts "#{@name} got w00ted!"
-  end
-
-  def strong?
-    @health > 100
-    # Same as:
-    #if @health <= 100
-    #  false
-    #else
-    #  true
-    #end
   end
 
   def points

@@ -1,7 +1,9 @@
-class Movie
+require_relative 'rankable'
 
-  attr_reader :rank
-  attr_accessor :title
+class Movie
+  include Rankable
+
+  attr_accessor :title, :rank
 
   def initialize(title,rank=0)
     @title = title.capitalize
@@ -38,33 +40,6 @@ class Movie
     puts "#{@title} led to #{snack.carbs} #{snack.name} carbs being consumed."
     puts "#{@title}'s snacks: #{@snack_carbs}"
 
-  end
-
-  def hit?
-    @rank >= 10
-  end
-
-  def status
-    hit? ? "Hit" : "Flop"
-    # Similar to an if/else block:
-    #if movie.rank >= 10
-    #  "Hit"
-    #else  
-    #  "Flop"
-    #end
-  end
-
-  def thumbs_up
-    @rank += 1
-  end
-
-  def thumbs_down
-    @rank -= 1
-  end
-
-  # Compares the other movie's rank with the current movie's rank
-  def <=>(other_movie)
-    other_movie.rank <=> @rank
   end
 
   def to_s

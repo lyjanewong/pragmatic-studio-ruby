@@ -1,6 +1,7 @@
 require_relative 'player'
 require_relative 'die'
 require_relative 'treasure_trove'
+require_relative 'loaded_die'
 
 module GameTurn
 
@@ -16,12 +17,10 @@ module GameTurn
     else
       player.w00t
     end
-
+    
     # Player finds treasure
     treasure = TreasureTrove.random
     player.found_treasure(treasure)
   end
-
-
 
 end
