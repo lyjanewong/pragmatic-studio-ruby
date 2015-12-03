@@ -1,5 +1,6 @@
 require_relative 'project'
 require_relative 'grant_project'
+require_relative 'featured_project'
 require_relative 'fundstarter'
 
 startup_projects = FundStarter.new("VC-Friendly Start-up Projects")
@@ -7,6 +8,8 @@ puts startup_projects.title
 startup_projects.load_projects("crowdfund_projects.csv")
 grant = GrantProject.new("Grant", 500)
 startup_projects.add_project(grant)
+featured = FeaturedProject.new("Featured", 50)
+startup_projects.add_project(featured)
 
 loop do 
 

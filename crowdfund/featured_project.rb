@@ -3,7 +3,7 @@ require_relative 'project'
 class FeaturedProject < Project
 
   def met_half_its_target?
-    @funds >= (@target / 2)
+    total_funds >= (@target / 2)
   end
 
   def add_funds

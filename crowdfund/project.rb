@@ -1,4 +1,7 @@
+require_relative 'fundable'
+
 class Project
+  include Fundable
 
   attr_reader :target
   attr_accessor :name, :funds
@@ -19,27 +22,6 @@ class Project
 
   end
 
-  def add_funds
-    @funds += 25
-    puts "+ #{@name} project got more funds!"
-  end
-
-  def remove_funds
-    @funds -= 15
-    puts "- #{@name} project lost some funds!"
-  end
-
-  def total_pledge_amount
-    @pledges.values.reduce(0, :+)
-  end
-
-  def pledge_amount(pledge)
-    @pledges[pledge.name] += pledge.amount
-
-    puts "#{pledge.dollar_signs} #{@name} received a #{pledge.name} pledge worth $#{pledge.amount}."
-    puts "#{@name}'s pledges: #{@pledges}"
-  end
-
   def total_funds
     @funds + total_pledge_amount
   end
@@ -54,6 +36,17 @@ class Project
 
   def status
     fully_funded? ? "Target Reached" : "Funding in Progress"
+  end
+
+  def total_pledge_amount
+    @pledges.values.reduce(0, :+)
+  end
+
+  def pledge_amount(pledge)
+    @pledges[pledge.name] += pledge.amount
+
+    puts "#{pledge.dollar_signs} #{@name} received a #{pledge.name} pledge worth $#{pledge.amount}."
+    puts "#{@name}'s pledges: #{@pledges}"
   end
 
   def to_s

@@ -1,6 +1,7 @@
 require_relative 'project'
 require_relative 'die'
 require_relative 'pledge_pool'
+require_relative 'fundable'
 
 module FundingRound
 
